@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ऑफ़लाइन - हमारा मनरेगा / Offline - Our MGNREGA</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    .icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .retry-button {
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .retry-button:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    .retry-button:active {
+      transform: translateY(0);
+    }
+
+    .tips {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      text-align: left;
+    }
+
+    .tips h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #555;
+    }
+
+    .tips ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tips li {
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .tips li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      background: white;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" onclick="toggleLanguage()">English</button>
+
+  <div class="container">
+    <div class="icon">📡</div>
+
+    <div id="hindi-content">
+      <h1>इंटरनेट कनेक्शन नहीं है</h1>
+      <p class="subtitle">
+        आप ऑफ़लाइन हैं। कृपया अपना इंटरनेट कनेक्शन चेक करें और दोबारा कोशिश करें।
+      </p>
+      <button class="retry-button" onclick="retry()">🔄 दोबारा कोशिश करें</button>
+
+      <div class="tips">
+        <h3>💡 टिप्स:</h3>
+        <ul>
+          <li>अपना मोबाइल डेटा या वाई-फाई चेक करें</li>
+          <li>एयरप्लेन मोड बंद करें</li>
+          <li>दूसरी जगह जाकर कोशिश करें</li>
+          <li>पहले देखे गए पेज कैश में सेव हो सकते हैं</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="english-content" style="display: none;">
+      <h1>No Internet Connection</h1>
+      <p class="subtitle">
+        You are offline. Please check your internet connection and try again.
+      </p>
+      <button class="retry-button" onclick="retry()">🔄 Retry</button>
+
+      <div class="tips">
+        <h3>💡 Tips:</h3>
+        <ul>
+          <li>Check your mobile data or Wi-Fi</li>
+          <li>Turn off Airplane mode</li>
+          <li>Try from a different location</li>
+          <li>Previously viewed pages may be cached</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'hi';
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'hi' ? 'en' : 'hi';
+
+      if (currentLang === 'hi') {
+        document.getElementById('hindi-content').style.display = 'block';
+        document.getElementById('english-content').style.display = 'none';
+        document.querySelector('.lang-toggle').textContent = 'English';
+      } else {
+        document.getElementById('hindi-content').style.display = 'none';
+        document.getElementById('english-content').style.display = 'block';
+        document.querySelector('.lang-toggle').textContent = 'हिंदी';
+      }
+    }
+
+    function retry() {
+      window.location.reload();
+    }
+
+    // Auto-retry when online
+    window.addEventListener('online', function() {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>
